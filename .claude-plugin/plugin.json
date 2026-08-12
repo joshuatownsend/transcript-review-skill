@@ -1,0 +1,18 @@
+{
+  "name": "transcript-review",
+  "version": "0.1.0",
+  "description": "Mine Claude Code session transcripts for evidence of how a skill or workflow actually behaved — isolating genuine human turns from tool results, agent messages, and compaction noise before drawing any conclusion.",
+  "author": {
+    "name": "Josh Townsend",
+    "email": "joshuatownsend@gmail.com"
+  },
+  "homepage": "https://github.com/joshuatownsend/transcript-review-skill",
+  "repository": "https://github.com/joshuatownsend/transcript-review-skill.git",
+  "keywords": [
+    "transcripts",
+    "session-analysis",
+    "skill-development",
+    "retrospective",
+    "evidence"
+  ]
+}

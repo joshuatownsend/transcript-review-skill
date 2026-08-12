@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 640px; }
+  body {
+    background:
+      radial-gradient(900px 520px at 88% -12%, rgba(94,234,212,0.13), transparent 62%),
+      radial-gradient(700px 460px at 4% 108%, rgba(99,102,241,0.16), transparent 60%),
+      linear-gradient(148deg, #0A101C 0%, #101827 52%, #0C1322 100%);
+    color: #E6EDF3;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    padding: 68px 76px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 62px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* faint transcript-line texture, evoking jsonl rows */
+  .grid {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom, rgba(255,255,255,0.028) 0 1px, transparent 1px 14px);
+    mask-image: linear-gradient(105deg, transparent 34%, black 100%);
+    -webkit-mask-image: linear-gradient(105deg, transparent 34%, black 100%);
+  }
+  .top { position: relative; }
+  .eyebrow {
+    font-size: 17px; font-weight: 600; letter-spacing: 0.235em;
+    text-transform: uppercase; color: #5EEAD4; margin-bottom: 24px;
+  }
+  h1 {
+    font-family: "Cascadia Code", Consolas, "SF Mono", monospace;
+    font-size: 82px; font-weight: 600; letter-spacing: -0.022em;
+    line-height: 1; color: #FFFFFF;
+  }
+  h1 .slash { color: #5EEAD4; opacity: 0.55; }
+  .deck {
+    margin-top: 26px; font-size: 29px; line-height: 1.42;
+    color: #9FB0C6; max-width: 780px; font-weight: 400;
+  }
+  .deck b { color: #DCE6F2; font-weight: 600; }
+
+  .bottom {
+    position: relative; display: flex;
+    align-items: flex-end; justify-content: space-between; gap: 56px;
+  }
+  .stat { flex: 0 0 auto; }
+  .bars { display: flex; flex-direction: column; gap: 13px; }
+  .row { display: flex; align-items: center; gap: 17px; }
+  .bar { height: 21px; border-radius: 5px; }
+  .bar.noise {
+    width: 468px;
+    background: repeating-linear-gradient(
+      115deg, #2C3A4F 0 8px, #232F42 8px 16px);
+  }
+  .bar.real {
+    width: 185px;
+    background: linear-gradient(90deg, #5EEAD4, #3BC9B0);
+    box-shadow: 0 0 26px rgba(94,234,212,0.34);
+  }
+  .num {
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 25px; font-weight: 600; width: 92px; text-align: right;
+  }
+  .num.noise { color: #6C7C93; }
+  .num.real  { color: #5EEAD4; }
+  .lbl { font-size: 19px; color: #7D8DA3; }
+  .lbl b { color: #B6C4D6; font-weight: 600; }
+  .caption {
+    margin-top: 19px; font-size: 15.5px; color: #61708A; letter-spacing: 0.012em;
+  }
+  .repo {
+    position: absolute; right: 76px; bottom: 58px; text-align: right;
+  }
+  .repo .owner {
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 19px; color: #8496AC;
+  }
+  .repo .name {
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 19px; color: #E6EDF3; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <div class="top">
+    <div class="eyebrow">Claude Code Skill</div>
+    <h1><span class="slash">/</span>transcript-review</h1>
+    <p class="deck">
+      Mine your past session transcripts for evidence of how a skill
+      <b>actually behaved</b> — not how you remember it.
+    </p>
+  </div>
+
+  <div class="bottom">
+    <div class="stat">
+      <div class="bars">
+        <div class="row">
+          <span class="num noise">3,384</span>
+          <span class="bar noise"></span>
+          <span class="lbl">turns a naive filter calls human</span>
+        </div>
+        <div class="row">
+          <span class="num real">1,335</span>
+          <span class="bar real"></span>
+          <span class="lbl"><b>actually human</b></span>
+        </div>
+      </div>
+      <div class="caption">
+        2.5× inflation that throws no error — one 2026-08 corpus
+      </div>
+    </div>
+  </div>
+
+  <div class="repo">
+    <div class="owner">joshuatownsend<span style="opacity:.45">/</span></div>
+    <div class="name">transcript-review-skill</div>
+  </div>
+</body>
+</html>

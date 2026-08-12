@@ -6,17 +6,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Claude Code **skill** repository holding one skill:
 
-- `transcript-review/` — mine past Claude Code session transcripts for evidence of how a skill or workflow actually behaved in practice.
+- `skills/transcript-review/` — mine past Claude Code session transcripts for evidence of how a skill or workflow actually behaved in practice.
 
 A skill is markdown, not executable code: YAML frontmatter declaring `name` and `description`, then the body as the instructions. The directory name matches the frontmatter `name`.
 
+## It is also a plugin and its own marketplace
+
+The repo root doubles as the plugin, and `.claude-plugin/marketplace.json` lists it with `"source": "./"`. That self-reference is deliberate and verified — `claude plugin validate` resolves it — so do not "fix" it into a `plugins/<name>/` subdirectory without re-validating.
+
+Three files now restate the same one-sentence description: the skill's frontmatter, `plugin.json`, and the marketplace entry. Change one, change all three.
+
+Note that `repository` in `plugin.json` must be a **string**. The published example showing an object (`{type, url}`) fails validation; the validator is the authority here, not the docs.
+
 ## No build, lint, or test tooling
 
-There is no `package.json`, test runner, linter, or CI config. Do not look for npm scripts or a test command — none exist. Changes are validated by invoking the skill against a real transcript corpus.
+There is no `package.json`, test runner, linter, or CI config. Do not look for npm scripts or a test command — none exist. Changes are validated by invoking the skill against a real transcript corpus, plus `claude plugin validate .claude-plugin/marketplace.json --strict` for the manifests.
 
 ## The code inside SKILL.md runs against transcripts, not this repo
 
-The JavaScript in `transcript-review/SKILL.md` reads `~/.claude/projects/**/*.jsonl` — the user's own session history. It is the skill's payload, not this project's source, and there is nothing here for it to analyze. Evaluate it against the transcript format, not against this repository.
+The JavaScript in `skills/transcript-review/SKILL.md` reads `~/.claude/projects/**/*.jsonl` — the user's own session history. It is the skill's payload, not this project's source, and there is nothing here for it to analyze. Evaluate it against the transcript format, not against this repository.
+
+## The social card is generated, not hand-drawn
+
+`assets/social-card.png` is a 1280×640 screenshot of `assets/social-card.html`, taken at that exact viewport. Edit the HTML and re-screenshot; do not retouch the PNG. The `file://` protocol is blocked in the browser tooling, so serve the directory over localhost first.
+
+The card quotes the 3,384 → 1,335 figure. It carries "one 2026-08 corpus" in the caption for the same reason the skill does — if the numbers change, that label changes with them.
 
 ## The step order is load-bearing
 

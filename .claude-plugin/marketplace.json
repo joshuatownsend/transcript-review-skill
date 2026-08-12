@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "joshuatownsend-skills",
+  "version": "1.0.0",
+  "description": "Skills by Josh Townsend for Claude Code",
+  "owner": {
+    "name": "Josh Townsend",
+    "email": "joshuatownsend@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "transcript-review",
+      "description": "Mine Claude Code session transcripts for evidence of how a skill or workflow actually behaved — isolating genuine human turns from tool results, agent messages, and compaction noise before drawing any conclusion.",
+      "version": "0.1.0",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}

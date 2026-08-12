@@ -1,3 +1,7 @@
 # Session-scoped artifact: a hook auto-captures ★ Insight blocks here,
 # stamped with the originating Claude Code session id. Not project content.
 /INSIGHTS.md
+
+# Playwright MCP scratch output (snapshots, console logs) from regenerating
+# the social card. Not project content.
+/.playwright-mcp/

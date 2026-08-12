@@ -1,5 +1,7 @@
 # transcript-review
 
+![transcript-review — mine your past session transcripts for evidence of how a skill actually behaved](assets/social-card.png)
+
 A [Claude Code](https://claude.com/claude-code) skill for mining your own past session
 transcripts for evidence of how a skill or workflow *actually* behaved — as opposed to how
 you remember it behaving, or how its instructions say it should.
@@ -30,14 +32,14 @@ structured around catching them.
 
 ## What it does
 
-`transcript-review/SKILL.md` is the whole thing — eight steps covering where transcripts live,
+`skills/transcript-review/SKILL.md` is the whole thing — eight steps covering where transcripts live,
 how to process them without burning context, how to verify the schema before trusting a filter,
 how to isolate genuine human turns, how to detect real invocations, which signals are worth
 counting, and how to report findings honestly.
 
 **The step order is load-bearing** — each step exists to prevent a failure the next one would
 otherwise inherit silently — so this README deliberately doesn't restate the steps as a
-checklist. Read `transcript-review/SKILL.md` for the actual instructions.
+checklist. Read `skills/transcript-review/SKILL.md` for the actual instructions.
 
 Two design choices worth knowing before you use it:
 
@@ -52,21 +54,41 @@ Two design choices worth knowing before you use it:
 
 ## Install
 
-Skills are directories containing a `SKILL.md`. Copy or symlink `transcript-review/` into
-either location:
+This repository is both a plugin and a single-plugin marketplace, so it installs in two
+commands from inside Claude Code:
 
-```bash
-# personal — available in every project
-git clone https://github.com/joshuatownsend/transcript-review-skill.git
-cp -r transcript-review-skill/transcript-review ~/.claude/skills/
-
-# or per-project
-cp -r transcript-review-skill/transcript-review .claude/skills/
+```
+/plugin marketplace add joshuatownsend/transcript-review-skill
+/plugin install transcript-review@joshuatownsend-skills
 ```
 
-Then invoke it as `/transcript-review`, or just ask for the work in your own words — the
-frontmatter `description` lets Claude pick it up from phrasing like "review my session
+Restart the session afterwards to load it. `/plugin marketplace update joshuatownsend-skills`
+picks up later releases.
+
+<details>
+<summary>Manual install, without the plugin system</summary>
+
+A skill is just a directory containing a `SKILL.md`, so you can drop it in directly:
+
+```bash
+git clone https://github.com/joshuatownsend/transcript-review-skill.git
+
+# personal — available in every project
+cp -r transcript-review-skill/skills/transcript-review ~/.claude/skills/
+
+# or per-project
+cp -r transcript-review-skill/skills/transcript-review .claude/skills/
+```
+
+</details>
+
+Either way, invoke it as `/transcript-review`, or just ask for the work in your own words —
+the frontmatter `description` lets Claude pick it up from phrasing like "review my session
 transcripts" or "how has this skill actually been performing?"
+
+Installed as a plugin, the skill is namespaced to its plugin, so it may appear in listings as
+`transcript-review:transcript-review`. That's expected — the two halves are the plugin name and
+the skill name, which happen to match here.
 
 ## Usage
 
@@ -99,10 +121,21 @@ categories were mostly regex noise.
 ## Repository layout
 
 ```
-transcript-review/
-  SKILL.md      # the skill itself — frontmatter plus instructions
-CLAUDE.md       # guidance for Claude when editing this repo
+.claude-plugin/
+  plugin.json        # plugin manifest — identity and version for this bundle
+  marketplace.json   # marketplace catalog — lists this repo's one plugin
+skills/
+  transcript-review/
+    SKILL.md         # the skill itself — frontmatter plus instructions
+assets/
+  social-card.html   # source for the card below — edit and re-screenshot
+  social-card.png    # 1280×640 social preview
+CLAUDE.md            # guidance for Claude when editing this repo
 ```
 
 There is no build, test, or lint step; a skill is markdown. Changes are validated by running
-the skill against a real transcript corpus.
+the skill against a real transcript corpus, and the manifests with:
+
+```bash
+claude plugin validate .claude-plugin/marketplace.json --strict
+```
